@@ -2,11 +2,11 @@
 
 import axios from "axios";
 import useUserData from "../hooks/useUserData";
+import Swal from "sweetalert2";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isInWishlist, setLatesData}) => {
   const userData = useUserData();
-  const userEmail = userData.email
-  console.log(userEmail);
+  const userEmail = userData.email;
 
   if (!product) {
     return (
@@ -16,9 +16,87 @@ const ProductCard = ({ product }) => {
     );
   }
 
-const handleWishlist =() =>{
-  axios.patch('http://localhost:5000/wishlist/add',{userEmail:userEmail,productId:product._id})
-}
+  const handleWishlist = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .patch(
+        "https://bookshop-server-theta.vercel.app/wishlist/add",
+        { userEmail: userEmail, productId: product._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.modifiedCount) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Added to Wishlist",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Error adding to wishlist:",
+          error.response ? error.response.data : error.message
+        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+  };
+
+  const handleRemoveWishlist = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .patch(
+        "https://bookshop-server-theta.vercel.app/wishlist/remove",
+        { userEmail: userEmail, productId: product._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.modifiedCount) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Product remove wishlist",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setLatesData((prev) => !prev)
+          
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Error adding to wishlist:",
+          error.response ? error.response.data : error.message
+        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+  };
+
+  
+
+
+  // Safeguard: Ensure product.description is a string before calling slice
+  const description = product?.description || ""; // Default to an empty string if undefined
+  const shortDescription =
+    description.length < 50 ? description : `${description.slice(0, 50)}...`;
 
   return (
     <div className="max-w-xs w-full rounded-md shadow-lg overflow-hidden group">
@@ -44,15 +122,23 @@ const handleWishlist =() =>{
           {product?.category || "No Category"}
         </h4>
         <p className="text-xs text-gray-500 mt-2 line-clamp-3">
-          {product?.description?.length < 50
-            ? product?.description
-            : `${product?.description.slice(0, 50)}...`}
+          {shortDescription}
         </p>
-
-        <div className="mt-4" >
-          <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
-            Add to wishlist
-          </button>
+        <div className="mt-4">
+          {isInWishlist ? (
+            <button
+            onClick={handleRemoveWishlist}
+            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+              Remove From Wishlist
+            </button>
+          ) : (
+            <button
+              onClick={handleWishlist}
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              Add to Wishlist
+            </button>
+          )}
         </div>
       </div>
     </div>

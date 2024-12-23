@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios"; // Ensure axios is imported
@@ -31,7 +32,7 @@ const AddProducts = () => {
 
     // Post request to add the product
     axios
-      .post("http://localhost:5000/add-products", product, {
+      .post("https://bookshop-server-theta.vercel.app/add-products", product, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -184,3 +185,5 @@ const AddProducts = () => {
 };
 
 export default AddProducts;
+
+

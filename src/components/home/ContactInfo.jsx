@@ -75,7 +75,7 @@ const ContactInfo = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="btn btn-warning mt-4 px-6 py-3 text-white font-semibold rounded-md"
+                  className="btn btn-warning mt-4 px-6 py-3 text-black font-semibold rounded-md"
                 >
                   Send Message
                 </button>

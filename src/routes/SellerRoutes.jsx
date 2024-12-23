@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 import Loading from "../pages/Loading";
 import useUserData from "../hooks/useUserData";
 
-function SellerRoutes({ children }) {
+const SellerRoutes = ({ children }) =>{
   const { user, loading } = useAuth();
   const userData = useUserData();
   const location = useLocation();

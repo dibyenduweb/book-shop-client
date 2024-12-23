@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth"; // Correct import of the useAuth hook
 import { useForm } from "react-hook-form";
@@ -6,7 +5,6 @@ import { useNavigate } from "react-router-dom"; // For navigation after successf
 import GoogleLogin from "../components/login-registration/GoogleLogin"; // Import GoogleLogin component
 import axios from "axios";
 import Swal from 'sweetalert2';
-
 
 const Register = () => {
   const { createUser } = useAuth();
@@ -20,72 +18,121 @@ const Register = () => {
   } = useForm();
 
   // Function to handle form submission
-  const onSubmit =  (data) => {
-    const email = data.email;
-    const role = data.role;
-    const status = role == "buyer" ? "approved" : "pending"
-    const wishlist = []
+  const onSubmit = (data) => {
+    const { email, password, role, fullName, image } = data;
+    const status = role === "buyer" ? "approved" : "pending";
+    const wishlist = [];
 
-    const userData= {email, role, status, wishlist}
+    const userData = { email, fullName, role, status, wishlist, image };
 
-  createUser(data.email, data.password)
-      .then(()=>{
-          axios.post('http://localhost:5000/users', userData).then((res)=>{
-          
-            if(res.data.insertedId){
+    createUser(email, password)
+      .then(() => {
+        axios.post('https://bookshop-server-theta.vercel.app/users', userData)
+          .then((res) => {
+            if (res.data.insertedId) {
               Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Registration sucses full",
+                title: "Registration successful",
                 showConfirmButton: false,
                 timer: 1500
               });
-              navigate("/");
+              navigate("/"); // Redirect to home after successful registration
             }
           })
-      })
-      navigate("/");
-      console.log(userData);
+          .catch((error) => {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Registration failed, please try again later.",
+              showConfirmButton: true
+            });
+          });
+      });
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-base-200 min-h-screen mt-16">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-6">
+        <div className="text-center lg:text-left max-w-md mx-auto">
+          <h1 className="text-3xl font-semibold text-gray-800">Register now!</h1>
+          <p className="py-4 text-gray-600 text-sm">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+        <div className="card bg-base-100 w-full max-w-sm shadow-lg p-4 mx-auto">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body space-y-4">
+            {/* Full Name Field */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-sm">Full Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="input input-bordered w-full"
+                {...register("fullName", {
+                  required: "Full Name is required",
+                  minLength: {
+                    value: 3,
+                    message: "Full Name must be at least 3 characters long",
+                  },
+                })}
+              />
+              {errors.fullName && (
+                <p className="text-red-500 text-sm">{errors.fullName.message}</p>
+              )}
+            </div>
+
             {/* Email Field */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-sm">Email</span>
               </label>
               <input
                 type="email"
-                placeholder="email"
-                className="input input-bordered"
+                placeholder="Email"
+                className="input input-bordered w-full"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Image Field */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-sm">Image Url</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Image URL"
+                className="input input-bordered w-full"
+                {...register("image", {
+                  required: "Image is required",
+                  minLength: {
+                    value: 3,
+                    message: "Image must be a valid URL",
+                  },
+                })}
+              />
+              {errors.image && (
+                <p className="text-red-500 text-sm">{errors.image.message}</p>
               )}
             </div>
 
             {/* Password Field */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-sm">Password</span>
               </label>
               <input
                 type="password"
-                placeholder="password"
-                className="input input-bordered"
+                placeholder="Password"
+                className="input input-bordered w-full"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -95,19 +142,19 @@ const Register = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <p className="text-red-500 text-sm">{errors.password.message}</p>
               )}
             </div>
 
             {/* Confirm Password Field */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Confirm Password</span>
+                <span className="label-text text-sm">Confirm Password</span>
               </label>
               <input
                 type="password"
                 placeholder="Confirm password"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) =>
@@ -115,42 +162,49 @@ const Register = () => {
                 })}
               />
               {errors.confirmPassword && (
-                <p className="text-red-500">{errors.confirmPassword.message}</p>
+                <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
               )}
             </div>
 
+            {/* Role Selection */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Role</span>
+                <span className="label-text text-sm">Role</span>
               </label>
               <select
                 className="select select-bordered w-full max-w-xs"
                 {...register("role", { required: true })}
+                defaultValue=""
               >
-                <option disabled selected>
-                  Select Your Rol
+                <option value="" disabled>
+                  Select Your Role
                 </option>
                 <option value="buyer">Buyer</option>
                 <option value="seller">Seller</option>
               </select>
-
               {errors.role && (
-                <p className="text-red-500">you must selet a role</p>
+                <p className="text-red-500 text-sm">You must select a role</p>
               )}
             </div>
 
-            <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+            {/* Submit Button */}
+            <div className="form-control mt-4">
+              <button type="submit" className="btn btn-primary w-full">
                 Register
               </button>
             </div>
 
-            <div className="mt-6">
+            {/* Google Login Button */}
+            <div className="mt-4">
               <GoogleLogin /> {/* Google login button */}
             </div>
 
-            <p className="my-4">
-              Already have an account? <Link to="/login">Login</Link>
+            {/* Link to Login Page */}
+            <p className="my-4 text-center text-sm">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-500 hover:text-blue-700">
+                Login
+              </Link>
             </p>
           </form>
         </div>

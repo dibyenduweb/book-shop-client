@@ -2,50 +2,42 @@
 import { FaFilter } from "react-icons/fa";
 
 const Fillter = ({
-  setBrand, // Fix capitalization for consistency
   setCategory,
   handleReset,
-  uniqueBrand,
   uniqueCategory,
 }) => {
   return (
     <div className="bg-gray-200 h-full min-h-screen">
       <div className="flex items-center gap-1 p-4">
         <FaFilter />
-        <h2 className="text-xl font-semibold">Filters</h2>
+        <h2 className="text-xl sm:text-2xl font-semibold">Filters</h2>
       </div>
-      <div className="mt-8 flex flex-col gap-2 items-center">
-        {/* Brand Filter */}
-        <div>
-          <select
-            className="p-[11px] w-40 border border-black rounded-md"
-            onChange={(e) => setBrand(e.target.value)} // Set brand onChange
-          >
-            <option value="">Brands</option>
-            {uniqueBrand.map((brand) => (
-              <option key={brand} value={brand}>{brand}</option>
-            ))}
-          </select>
-        </div>
-        
+      <div className="mt-8 flex flex-col gap-4 sm:gap-6 items-center px-4 sm:px-8">
         {/* Category Filter */}
-        <div>
+        <div className="w-full sm:w-64">
           <select
-            className="p-[11px] w-40 border border-black rounded-md"
-            onChange={(e) => setCategory(e.target.value)} // Set category onChange
+            className="p-[11px] w-full border border-black rounded-md"
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Category</option>
             {uniqueCategory.map((category) => (
-              <option key={category} value={category}>{category}</option>
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </select>
         </div>
       </div>
 
       {/* Reset Button */}
-      <button onClick={handleReset} className="btn mt-4 w-full">
-        Reset
-      </button>
+      <div className="px-4 sm:px-8 mt-4">
+        <button
+          onClick={handleReset}
+          className="w-full sm:w-auto sm:px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react"; // Importing useEffect for scroll event
 import useAuth from "../hooks/useAuth";
 import UserDropdown from "./UserDropdown";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 export const Navbar = () => {
   const { user } = useAuth();
@@ -78,11 +78,6 @@ export const Navbar = () => {
               </li>
 
               <li>
-                <Link to="/wishlist" className="flex items-center gap-2">
-                  <FaHeart /> <span>Wishlist</span>
-                </Link>
-              </li>
-              <li>
                 <Link to="/cart" className="flex items-center gap-2">
                   <FaShoppingCart /> <span>Cart</span>
                 </Link>
@@ -114,13 +109,6 @@ export const Navbar = () => {
       </div>
 
       <div className="navbar-end flex items-center gap-4">
-        <Link to="/wishlist" className="hidden lg:flex">
-          <button className="btn btn-ghost text-xl flex items-center gap-2">
-            <FaHeart />
-            <span>Wishlist</span>
-          </button>
-        </Link>
-
         <Link to="/cart" className="hidden lg:flex">
           <button className="btn btn-ghost text-xl flex items-center gap-2">
             <FaShoppingCart />
@@ -133,12 +121,12 @@ export const Navbar = () => {
         ) : (
           <div className="flex gap-2 items-center">
             <Link to="/login">
-              <button className="btn btn-warning text-white px-4 py-2 rounded-md">
+              <button className="btn btn-warning text-black px-4 py-2 rounded-md">
                 Sign In
               </button>
             </Link>
-            <Link to="/register">
-              <button className="btn btn-warning  text-white px-4 py-2 rounded-md">
+            <Link to="/registar">
+              <button className="btn btn-warning  text-black px-4 py-2 rounded-md">
                 Register
               </button>
             </Link>
