@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
         {
           path:'/dashboard/allproducts',
           element:<AdminRoutes><AllProduct/></AdminRoutes>,
-          loader: () => fetch(`https://bookshop-server-theta.vercel.app/allproducts`)
+          loader: () => fetch(`http://localhost:5000/allproducts`)
         },
         //selller routes
         {

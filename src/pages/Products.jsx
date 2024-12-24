@@ -24,7 +24,7 @@ const Products = () => {
     // Fetch products from the server
     axios
       .get(
-        `https://bookshop-server-theta.vercel.app/allproducts?title=${search}&page=${page}&limit=9&sort=${sort}&category=${category}`
+        `http://localhost:5000/allproducts?title=${search}&page=${page}&limit=9&sort=${sort}&category=${category}`
       )
       .then((res) => {
         if (Array.isArray(res.data.products)) {

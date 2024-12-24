@@ -14,7 +14,7 @@ const MyProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://bookshop-server-theta.vercel.app/allproducts"
+          "http://localhost:5000/allproducts"
         );
         const data = await response.json();
         setAllProducts(data);

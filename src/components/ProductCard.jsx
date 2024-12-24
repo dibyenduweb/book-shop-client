@@ -20,7 +20,7 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
     const token = localStorage.getItem("token");
     axios
       .patch(
-        "https://bookshop-server-theta.vercel.app/wishlist/add",
+        "http://localhost:5000/wishlist/add",
         { userEmail: userEmail, productId: product._id },
         {
           headers: {
@@ -56,7 +56,7 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
     const token = localStorage.getItem("token");
     axios
       .patch(
-        "https://bookshop-server-theta.vercel.app/wishlist/remove",
+        "http://localhost:5000/wishlist/remove",
         { userEmail: userEmail, productId: product._id },
         {
           headers: {

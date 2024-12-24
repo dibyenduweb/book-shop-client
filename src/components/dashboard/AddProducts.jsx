@@ -32,7 +32,7 @@ const AddProducts = () => {
 
     // Post request to add the product
     axios
-      .post("https://bookshop-server-theta.vercel.app/add-products", product, {
+      .post("http://localhost:5000/add-products", product, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

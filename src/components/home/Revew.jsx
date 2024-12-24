@@ -54,7 +54,7 @@ const Review = () => {
   };
 
   return (
-    <div className="font-[sans-serif] max-w-[410px] h-auto p-6 rounded-lg mx-auto shadow-[0_6px_18px_-6px_rgba(193,195,248)] bg-white relative mt-12">
+    <div className="font-[sans-serif]  max-w-6xl  h-auto p-6 rounded-lg mx-auto shadow-[0_6px_18px_-6px_rgba(193,195,248)] bg-white relative mt-12">
       <img
         src="https://readymadeui.com/profile_2.webp"
         alt="profile"

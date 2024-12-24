@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="mt-20 grid md:grid-cols-3 gap-6 py-8 px-4 md:px-16 bg-gradient-to-r from-blue-700 to-blue-400 font-sans overflow-hidden">
+    <div className="mt-20 grid md:grid-cols-3 max-w-7xl mx-auto gap-6 py-8 px-4 md:px-16 bg-gradient-to-r from-blue-700 to-blue-400 font-sans overflow-hidden">
       <div className="md:col-span-2 text-center md:text-left">
         <h1 className="text-3xl md:text-4xl font-bold text-white">
           Welcome to MY-Ebbok!
