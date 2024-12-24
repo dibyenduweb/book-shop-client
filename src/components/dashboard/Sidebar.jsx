@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import { GrOverview } from "react-icons/gr";
 import { IoHomeOutline } from "react-icons/io5";
@@ -9,7 +8,6 @@ import { MdAddBusiness } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
-
 
 const sellerRoutes = [
   {
@@ -41,15 +39,13 @@ const adminRoutes = [
   // },
 ];
 
-
 const buyerRoutes = [
   {
     id: 1,
     route: "/dashboard/wishlist",
     title: "My Wishlist",
-    icon:<FaRegHeart />,
+    icon: <FaRegHeart />,
   },
-  
 ];
 
 const Sidebar = () => {
