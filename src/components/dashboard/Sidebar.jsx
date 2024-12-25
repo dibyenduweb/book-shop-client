@@ -8,6 +8,8 @@ import { MdAddBusiness } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
+import { FiMenu, FiX } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 
 const sellerRoutes = [
   {
@@ -31,12 +33,13 @@ const adminRoutes = [
     title: "All Products",
     icon: <MdOutlineInventory2 />,
   },
-  // {
-  //   id: 2,
-  //   route: "/dashboard/allusers",
-  //   title: "All Users",
-  //   icon: <MdAddBusiness />,
-  // },
+  {
+    id: 2,
+    route: "/dashboard/allusers",
+    title: "Users List",
+    icon: <FaRegUser />
+    ,
+  },
 ];
 
 const buyerRoutes = [
@@ -63,26 +66,19 @@ const Sidebar = () => {
 
   return (
     <div>
+      {/* Hamburger Menu Button */}
       <button
         onClick={toggleSidebar}
         aria-controls="default-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        className={`inline-flex items-center bg-black p-2 mt-2 ms-3 text-sm text-white rounded-lg sm:hidden hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 fixed top-4 left-4 z-50 ${sidebarOpen ? 'bg-yellow-500' : ''}`}
       >
         <span className="sr-only">Open sidebar</span>
-        <svg
-          className="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          ></path>
-        </svg>
+        {sidebarOpen ? (
+          <FiX className="w-6 h-6 text-white" />
+        ) : (
+          <FiMenu className="w-6 h-6 text-white" />
+        )}
       </button>
 
       {/* Sidebar */}
@@ -94,32 +90,9 @@ const Sidebar = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-          {/* Close Button for Mobile */}
-          {sidebarOpen && (
-            <button
-              onClick={closeSidebar}
-              aria-label="Close sidebar"
-              className="absolute top-4 right-4 p-2 text-white bg-gray-700 rounded-full hover:bg-gray-600 sm:hidden"
-            >
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 11-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 11-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </button>
-          )}
-
           {/* Sidebar Header */}
           <div className="p-4">
-            <img src="https://i.ibb.co/2WxKrD6/ds.png" alt="" />
+            <img src="https://i.ibb.co/2WxKrD6/ds.png" alt="Logo" />
           </div>
 
           {/* User Info */}

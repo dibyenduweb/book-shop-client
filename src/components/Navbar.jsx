@@ -32,7 +32,7 @@ export const Navbar = () => {
   return (
     <div
       className={`navbar container mx-auto fixed top-0 left-0 right-0 z-10 transition-all duration-300 ${
-        isScrolled ? "bg-blue-600 shadow-md" : "bg-white"
+        isScrolled ? "bg-white shadow-md" : "bg-white "
       }`}
     >
       <div className="navbar-start">

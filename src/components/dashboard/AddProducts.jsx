@@ -32,7 +32,7 @@ const AddProducts = () => {
 
     // Post request to add the product
     axios
-      .post("http://localhost:5000/add-products", product, {
+      .post("https://bookshop-server-theta.vercel.app/add-products", product, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -59,13 +59,13 @@ const AddProducts = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto px-4 py-6">
       <h1 className="text-2xl font-bold text-center mb-12">Add Product</h1>
       <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
           {/* Title and Category Field on the Same Line */}
-          <div className="flex space-x-4 mb-4">
-            <div className="form-control w-1/2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Title</span>
               </label>
@@ -78,7 +78,7 @@ const AddProducts = () => {
               {errors.title && <p className="text-red-500">{errors.title.message}</p>}
             </div>
 
-            <div className="form-control w-1/2">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Category</span>
               </label>
@@ -99,9 +99,9 @@ const AddProducts = () => {
             </div>
           </div>
 
-          <div className="flex space-x-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {/* Price Field */}
-            <div className="form-control w-1/2">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Price</span>
               </label>
@@ -122,7 +122,7 @@ const AddProducts = () => {
             </div>
 
             {/* Stock Field */}
-            <div className="form-control w-1/2">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Stock</span>
               </label>
@@ -144,9 +144,9 @@ const AddProducts = () => {
           </div>
 
           {/* Description and Image URL Fields on the Same Line */}
-          <div className="flex space-x-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {/* Description Field */}
-            <div className="form-control w-1/2">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Description</span>
               </label>
@@ -159,7 +159,7 @@ const AddProducts = () => {
             </div>
 
             {/* Image URL Field */}
-            <div className="form-control w-1/2">
+            <div className="form-control">
               <label className="label">
                 <span className="label-text">Image URL</span>
               </label>
@@ -174,7 +174,7 @@ const AddProducts = () => {
           </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary w-full sm:w-auto">
               Add Product
             </button>
           </div>
@@ -185,5 +185,3 @@ const AddProducts = () => {
 };
 
 export default AddProducts;
-
-

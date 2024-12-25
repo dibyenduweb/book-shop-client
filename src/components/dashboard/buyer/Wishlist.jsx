@@ -30,7 +30,7 @@ const Wishlist = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/wishlist/${userData._id}`,
+          `https://bookshop-server-theta.vercel.app/wishlist/${userData._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, 

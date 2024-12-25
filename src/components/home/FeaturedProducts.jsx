@@ -8,7 +8,7 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/allproducts");
+        const response = await fetch("https://bookshop-server-theta.vercel.app/allproducts");
         const data = await response.json();
 
         if (Array.isArray(data.products)) {

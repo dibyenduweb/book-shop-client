@@ -4,9 +4,18 @@ import axios from "axios";
 import useUserData from "../hooks/useUserData";
 import Swal from "sweetalert2";
 
-const ProductCard = ({ product, isInWishlist, setLatesData}) => {
+const ProductCard = ({ product, isInWishlist, setLatesData }) => {
   const userData = useUserData();
   const userEmail = userData.email;
+  const userRole = userData.role;
+
+  if (!userData || !userRole) {
+    return (
+      <div className="w-full h-64 flex justify-center items-center bg-gray-200">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -20,7 +29,7 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
     const token = localStorage.getItem("token");
     axios
       .patch(
-        "http://localhost:5000/wishlist/add",
+        "https://bookshop-server-theta.vercel.app/wishlist/add",
         { userEmail: userEmail, productId: product._id },
         {
           headers: {
@@ -56,7 +65,7 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
     const token = localStorage.getItem("token");
     axios
       .patch(
-        "http://localhost:5000/wishlist/remove",
+        "https://bookshop-server-theta.vercel.app/wishlist/remove",
         { userEmail: userEmail, productId: product._id },
         {
           headers: {
@@ -69,17 +78,16 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Product remove wishlist",
+            title: "Product removed from wishlist",
             showConfirmButton: false,
             timer: 1500,
           });
-          setLatesData((prev) => !prev)
-          
+          setLatesData((prev) => !prev);
         }
       })
       .catch((error) => {
         console.error(
-          "Error adding to wishlist:",
+          "Error removing from wishlist:",
           error.response ? error.response.data : error.message
         );
         Swal.fire({
@@ -90,11 +98,7 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
       });
   };
 
-  
-
-
-  // Safeguard: Ensure product.description is a string before calling slice
-  const description = product?.description || ""; // Default to an empty string if undefined
+  const description = product?.description || "";
   const shortDescription =
     description.length < 50 ? description : `${description.slice(0, 50)}...`;
 
@@ -125,19 +129,31 @@ const ProductCard = ({ product, isInWishlist, setLatesData}) => {
           {shortDescription}
         </p>
         <div className="mt-4">
-          {isInWishlist ? (
-            <button
-            onClick={handleRemoveWishlist}
-            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
-              Remove From Wishlist
-            </button>
-          ) : (
-            <button
-              onClick={handleWishlist}
-              className="btn btn-warning"
-            >
-              Add to Wishlist
-            </button>
+          {userRole !== "seller" && userRole !== "admin" && (
+            <>
+              {isInWishlist ? (
+                <button
+                  onClick={handleRemoveWishlist}
+                  className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
+                >
+                  Remove From Wishlist
+                </button>
+              ) : (
+                <button onClick={handleWishlist} className="btn btn-warning">
+                  Add to Wishlist
+                </button>
+              )}
+            </>
+          )}
+          {userRole !== "seller" && userRole !== "admin" && (
+            <>
+              <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+                Add to Cart
+              </button>
+              <button className="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 mt-2">
+                Buy Now
+              </button>
+            </>
           )}
         </div>
       </div>

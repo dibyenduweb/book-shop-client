@@ -11,7 +11,7 @@ const useUserData = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       
-        const res = await axios.get(`http://localhost:5000/users/${user.email}`);
+        const res = await axios.get(`https://bookshop-server-theta.vercel.app/users/${user.email}`);
         setUserData(res.data);
     };
     if (user?.email && !loading) {

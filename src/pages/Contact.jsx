@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Contact = () => {
   // State to handle form inputs
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState('');
+  const [formStatus, setFormStatus] = useState("");
 
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -29,21 +29,22 @@ const Contact = () => {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      setFormStatus('Your message has been sent successfully!');
+      setFormStatus("Your message has been sent successfully!");
       setFormData({
-        name: '',
-        email: '',
-        message: ''
+        name: "",
+        email: "",
+        message: "",
       });
     }, 2000); // Simulate network delay
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 mt-12">
       <section className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800">Contact Us</h1>
         <p className="mt-4 text-lg text-gray-600">
-          We’d love to hear from you! Please fill out the form below, and we will get back to you as soon as possible.
+          We’d love to hear from you! Please fill out the form below, and we
+          will get back to you as soon as possible.
         </p>
       </section>
 
@@ -52,7 +53,12 @@ const Contact = () => {
         <form onSubmit={handleSubmit}>
           {/* Name Field */}
           <div className="mb-4">
-            <label htmlFor="name" className="block text-lg font-medium text-gray-800">Full Name</label>
+            <label
+              htmlFor="name"
+              className="block text-lg font-medium text-gray-800"
+            >
+              Full Name
+            </label>
             <input
               type="text"
               id="name"
@@ -66,7 +72,12 @@ const Contact = () => {
 
           {/* Email Field */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-lg font-medium text-gray-800">Email Address</label>
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium text-gray-800"
+            >
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -80,7 +91,12 @@ const Contact = () => {
 
           {/* Message Field */}
           <div className="mb-4">
-            <label htmlFor="message" className="block text-lg font-medium text-gray-800">Your Message</label>
+            <label
+              htmlFor="message"
+              className="block text-lg font-medium text-gray-800"
+            >
+              Your Message
+            </label>
             <textarea
               id="message"
               name="message"
@@ -97,9 +113,11 @@ const Contact = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full py-3 text-white font-bold rounded-lg focus:outline-none ${isSubmitting ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+              className={`btn btn-warning ${
+                isSubmitting ? "btn-warning" : "btn-warning hover:bg-blue-600"
+              }`}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </div>
         </form>

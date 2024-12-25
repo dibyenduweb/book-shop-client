@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         axios
-          .post(`http://localhost:5000/authentication`, {
+          .post(`https://bookshop-server-theta.vercel.app/authentication`, {
             email: currentUser.email,
           })
           .then((data) => {

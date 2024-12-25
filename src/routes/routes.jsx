@@ -14,10 +14,10 @@ import AddProducts from "../components/dashboard/AddProducts";
 import SellerRoutes from "./SellerRoutes";
 import Cart from "../pages/Cart";
 import AdminRoutes from "./AdminRoutes";
-import AllUsers from "../components/dashboard/AllUsers";
 import AllProduct from "../components/dashboard/AllProduct";
 import Wishlist from "../components/dashboard/buyer/Wishlist";
 import BuyerRoutes from "./BuyerRoutes";
+import AllUsers from "../components/dashboard/AllUser";
 
 
 export const router = createBrowserRouter([
@@ -68,12 +68,12 @@ export const router = createBrowserRouter([
         //admin routes
         {
           path:'/dashboard/allusers',
-          element:<AdminRoutes><AllUsers/></AdminRoutes>
+          element:<AdminRoutes><AllUsers/> </AdminRoutes>
         },
         {
           path:'/dashboard/allproducts',
           element:<AdminRoutes><AllProduct/></AdminRoutes>,
-          loader: () => fetch(`http://localhost:5000/allproducts`)
+          loader: () => fetch(`https://bookshop-server-theta.vercel.app/allproducts`)
         },
         //selller routes
         {

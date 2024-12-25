@@ -24,7 +24,7 @@ const Products = () => {
     // Fetch products from the server
     axios
       .get(
-        `http://localhost:5000/allproducts?title=${search}&page=${page}&limit=9&sort=${sort}&category=${category}`
+        `https://bookshop-server-theta.vercel.app/allproducts?title=${search}&page=${page}&limit=9&sort=${sort}&category=${category}`
       )
       .then((res) => {
         if (Array.isArray(res.data.products)) {
@@ -36,13 +36,13 @@ const Products = () => {
             "Expected an array of products, but received:",
             res.data
           );
-          setProducts([]); // Clear products in case of wrong data format
+          setProducts([]); 
         }
-        setLoading(false); // Stop loading when data is fetched
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
-        setLoading(false); // Stop loading in case of error
+        setLoading(false); 
       });
   }, [search, sort, category, page]);
 

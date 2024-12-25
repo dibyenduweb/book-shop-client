@@ -27,7 +27,7 @@ const Register = () => {
 
     createUser(email, password)
       .then(() => {
-        axios.post('http://localhost:5000/users', userData)
+        axios.post('https://bookshop-server-theta.vercel.app/users', userData)
           .then((res) => {
             if (res.data.insertedId) {
               Swal.fire({
